@@ -111,10 +111,7 @@ src/version.h: .remake-version-h
 	$(AM_V_GEN) $(generate_ver); echo "$$ver" > $@
 src/config_opts.inc:
 	mkdir -p src
-	$(AM_V_GEN) if test -x ./config.status; then \
-	  ./config.status --config; \
-	else echo "(unknown)"; \
-	fi | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/^/"/' -e 's/$$/"/' -e 's/^/#define JQ_CONFIG /' > $@
+	echo '#define JQ_CONFIG "(unknown)"' > $@
 src/main.c: src/version.h src/config_opts.inc
 
 src/builtin.inc: $(srcdir)/src/builtin.jq
